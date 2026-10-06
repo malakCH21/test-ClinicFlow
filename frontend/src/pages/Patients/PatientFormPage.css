@@ -1,0 +1,153 @@
+.patient-form-page {
+    min-height: 100vh;
+
+    padding: 40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef7ff 0%,
+            #f7fbff 50%,
+            #eefcf8 100%
+        );
+
+    font-family:
+        Arial,
+        sans-serif;
+}
+
+.patient-form-container {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+.patient-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+.patient-form-header h1 {
+    margin: 0 0 8px;
+
+    font-size: 34px;
+
+    color: #1f2937;
+}
+
+.patient-form-header p {
+    margin: 0;
+
+    color: #6b7280;
+}
+
+.patient-form-card {
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.08);
+}
+
+.patient-form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.patient-submit-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0891b2,
+            #14b8a6
+        );
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.patient-submit-button:hover {
+    opacity: 0.9;
+}
+
+.patient-submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.back-button {
+    padding: 11px 16px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+
+    background: white;
+
+    color: #374151;
+
+    cursor: pointer;
+}
+
+.back-button:hover {
+    border-color: #0891b2;
+
+    color: #0891b2;
+}
+
+@media (max-width: 700px) {
+
+    .patient-form-page {
+        padding: 25px 20px;
+    }
+
+    .patient-form-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .patient-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+
+    .back-button {
+        width: 100%;
+    }
+
+    .patient-form-card {
+        padding: 25px;
+    }
+}

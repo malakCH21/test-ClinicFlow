@@ -34,17 +34,14 @@ const create = async (data, userId) => {
 };
 
 
-const findAll = async (date, status) => {
-
+const findAll = async (date, status, patientId) => {
     let query = `
         SELECT
             appointments.*,
             patients.full_name AS patient_name
         FROM appointments
-
         JOIN patients
-        ON appointments.patient_id = patients.id
-
+            ON appointments.patient_id = patients.id
         WHERE 1 = 1
     `;
 
@@ -53,21 +50,34 @@ const findAll = async (date, status) => {
     if (date) {
         values.push(date);
 
-        query += ` AND appointment_date >= $${values.length}::date AND appointment_date < $${values.length}::date + INTERVAL '1 day' `;
+        query += `
+            AND appointment_date >= $${values.length}::date
+            AND appointment_date <
+                $${values.length}::date + INTERVAL '1 day'
+        `;
     }
 
     if (status) {
         values.push(status);
 
-        query += ` AND status = $${values.length} `;
+        query += `
+            AND status = $${values.length}
+        `;
     }
 
-    query += ` ORDER BY appointment_date ASC `;
+    if (patientId) {
+        values.push(patientId);
 
-    const result = await pool.query(
-        query,
-        values
-    );
+        query += `
+            AND patient_id = $${values.length}
+        `;
+    }
+
+    query += `
+        ORDER BY appointment_date ASC
+    `;
+
+    const result = await pool.query(query, values);
 
     return result.rows.map(
         row => new Appointment(row)

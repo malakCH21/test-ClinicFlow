@@ -4,10 +4,11 @@ const authRoutes = require("./routes/authRoutes");
 const patientRoutes = require("./routes/patientRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const cors = require("cors");
 
 const app = express();
 
-//const cors = require("cors");
+app.use(cors());
 
 app.use(express.json());
 

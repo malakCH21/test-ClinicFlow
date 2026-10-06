@@ -39,10 +39,13 @@ const createAppointment = async (req, res) => {
 
 const getAppointments = async (req, res) => {
     try {
-        const { date, status } = req.query;
+        const { date, status, patientId } = req.query;
 
-        const appointments = await appointmentService.getAppointments(date, status);
-
+        const appointments = await appointmentService.getAppointments(
+            date,
+            status,
+            patientId
+        );
         res.json(appointments);
 
     } catch (error) {
