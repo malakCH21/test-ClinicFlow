@@ -45,7 +45,6 @@ DB_PORT=5432
 JWT_SECRET=your secure jwt secret
 ```
 
-> Do not commit sensitive environment variables to GitHub.
 
 ---
 
