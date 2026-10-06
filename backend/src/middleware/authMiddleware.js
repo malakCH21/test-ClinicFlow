@@ -15,6 +15,8 @@ const authMiddleware = (req, res, next) => {
     try {
         const user = jwt.verify(token, jwtConfig.secret);
 
+        console.log("Utilisateur JWT :", user);
+
         req.user = user;
         next();
 
