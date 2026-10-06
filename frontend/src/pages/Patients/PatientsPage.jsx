@@ -229,18 +229,14 @@ function PatientsPage() {
                                                         Modifier
                                                     </button>
 
-                                                    {user?.role === "admin" && (
-                                                        <button
-                                                            className="delete-button"
-                                                            onClick={() =>
-                                                                handleDelete(
-                                                                    patient.id
-                                                                )
-                                                            }
-                                                        >
-                                                            Supprimer
-                                                        </button>
-                                                    )}
+                                                    <button
+                                                        className="delete-button"
+                                                        onClick={() =>
+                                                            handleDelete(patient.id)
+                                                        }
+                                                    >
+                                                        Supprimer
+                                                    </button>
 
                                                 </div>
                                             </td>
