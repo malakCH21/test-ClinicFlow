@@ -11,33 +11,31 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- test123
 -- =========================================================
 
-INSERT INTO users (id,full_name,email,password,role)
+INSERT INTO users (
+    full_name,
+    email,
+    password,
+    role
+)
 VALUES
-
 (
-    '1',
     'ClinicFlow Admin',
     'admin@clinicflow.com',
     crypt('test123', gen_salt('bf')),
     'admin'
 ),
-
 (
-    '2',
-    'malak Staff',
-    'malak@clinicflow.com',
+    'hiba Staff',
+    'hiba@clinicflow.com',
     crypt('test123', gen_salt('bf')),
     'staff'
 ),
-
 (
-    '3',
     'Yassine Staff',
     'yassine@clinicflow.com',
     crypt('test123', gen_salt('bf')),
     'staff'
 )
-
 ON CONFLICT (email) DO NOTHING;
 
 
@@ -45,54 +43,49 @@ ON CONFLICT (email) DO NOTHING;
 -- PATIENTS
 -- =========================================================
 
-INSERT INTO patients (id,full_name,cin,phone,birthdate,address)
+INSERT INTO patients (
+    full_name,
+    cin,
+    phone,
+    birthdate,
+    address
+)
 VALUES
-
 (
-    'a1',
-    'Sara sara',
+    'Sara Sara',
     'AB123456',
     '0612345678',
     '1998-05-12',
     'Rabat'
 ),
-
 (
-    'a2',
-    'Youssef youssef',
+    'Youssef Youssef',
     'CD234567',
     '0623456789',
     '1989-11-23',
     'Casablanca'
 ),
-
 (
-    'a3',
-    'Salma salma',
+    'Salma Salma',
     'EF345678',
     '0634567890',
     '2001-03-08',
     'Salé'
 ),
-
 (
-    'a4',
-    'Omar omar',
+    'Omar Omar',
     'GH456789',
     '0645678901',
     '1978-07-15',
     'Kénitra'
 ),
-
 (
-    'a5',
-    'Imane imane',
+    'Imane Imane',
     'IJ567890',
     '0656789012',
     '1995-09-30',
     'Temara'
 )
-
 ON CONFLICT (cin) DO NOTHING;
 
 
@@ -100,94 +93,102 @@ ON CONFLICT (cin) DO NOTHING;
 -- APPOINTMENTS
 -- =========================================================
 
-INSERT INTO appointments (patient_id,appointment_date,status,reason,notes,created_by)
+INSERT INTO appointments (
+    patient_id,
+    appointment_date,
+    status,
+    reason,
+    notes,
+    created_by
+)
 VALUES
 
 (
-    'a1',
+    (SELECT id FROM patients WHERE cin = 'AB123456'),
     CURRENT_DATE + TIME '09:00',
     'confirmed',
     'Consultation générale',
-    '1'
+    NULL,
+    (SELECT id FROM users WHERE email = 'admin@clinicflow.com')
 ),
 
 (
-    'a2',
+    (SELECT id FROM patients WHERE cin = 'CD234567'),
     CURRENT_DATE + TIME '10:00',
     'pending',
     'Contrôle',
     NULL,
-    '2'
+    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
 ),
 
 (
-    'a3',
+    (SELECT id FROM patients WHERE cin = 'EF345678'),
     CURRENT_DATE + TIME '11:00',
     'confirmed',
     'Consultation',
     'Contrôle régulier',
-    '33333333-3333-4333-8333-333333333333'
+    (SELECT id FROM users WHERE email = 'yassine@clinicflow.com')
 ),
 
 (
-    'a4',
+    (SELECT id FROM patients WHERE cin = 'GH456789'),
     CURRENT_DATE + TIME '14:00',
     'cancelled',
     'Analyse',
     'Annulé par le patient',
-    '2'
+    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
 ),
 
 (
-    'a5',
+    (SELECT id FROM patients WHERE cin = 'IJ567890'),
     CURRENT_DATE + TIME '15:00',
     'pending',
     'Consultation générale',
     NULL,
-    '1'
+    (SELECT id FROM users WHERE email = 'admin@clinicflow.com')
 ),
 
 (
-    'a1',
+    (SELECT id FROM patients WHERE cin = 'AB123456'),
     CURRENT_DATE + INTERVAL '1 day' + TIME '10:30',
     'pending',
     'Suivi',
     NULL,
-    '2'
+    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
 ),
 
 (
-    'a2',
+    (SELECT id FROM patients WHERE cin = 'CD234567'),
     CURRENT_DATE + INTERVAL '1 day' + TIME '12:00',
     'confirmed',
     'Consultation spécialisée',
     'Apporter les anciens résultats',
-    '3'
+    (SELECT id FROM users WHERE email = 'yassine@clinicflow.com')
 ),
 
 (
-    'a3',
+    (SELECT id FROM patients WHERE cin = 'EF345678'),
     CURRENT_DATE + INTERVAL '2 days' + TIME '09:30',
     'cancelled',
     'Contrôle',
     NULL,
-    '1'
+    (SELECT id FROM users WHERE email = 'admin@clinicflow.com')
 ),
 
 (
-    'a4',
+    (SELECT id FROM patients WHERE cin = 'GH456789'),
     CURRENT_DATE + INTERVAL '2 days' + TIME '14:30',
     'confirmed',
     'Consultation générale',
     NULL,
-    '2'
+    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
 ),
 
 (
-    'a5',
+    (SELECT id FROM patients WHERE cin = 'IJ567890'),
     CURRENT_DATE + INTERVAL '3 days' + TIME '16:00',
     'pending',
     'Suivi médical',
     'Prévoir contrôle',
-    '3'
+    (SELECT id FROM users WHERE email = 'yassine@clinicflow.com')
 );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: import.meta.env.API_URL,
+    baseURL: "http://localhost:5000/api",
     headers: {
         "Content-Type": "application/json"
     }
@@ -9,8 +9,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
     (config) => {
-        const token =
-            localStorage.getItem("token");
+        const token = localStorage.getItem("token");
 
         if (token) {
             config.headers.Authorization =

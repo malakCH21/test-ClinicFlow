@@ -2,21 +2,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import patientService from "../../services/patientService";
+import { useAuth } from "../../context/AuthContext";
 
 import "./PatientsPage.css";
 
 function PatientsPage() {
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
 
     const [patients, setPatients] = useState([]);
-
     const [search, setSearch] = useState("");
-
     const [page, setPage] = useState(1);
     const [limit] = useState(5);
-
     const [totalPages, setTotalPages] = useState(1);
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -55,43 +53,83 @@ function PatientsPage() {
         setPage(1);
     };
 
+    const handleDelete = async (id) => {
+        const confirmation = window.confirm(
+            "Voulez-vous vraiment supprimer ce patient ?"
+        );
+
+        if (!confirmation) return;
+
+        try {
+            await patientService.deletePatient(id);
+
+            await loadPatients();
+
+        } catch (error) {
+            console.error("Erreur suppression :", error);
+
+            setError(
+                error.response?.data?.message ||
+                "Impossible de supprimer le patient"
+            );
+        }
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
+
     return (
         <div className="patients-page">
-
             <div className="patients-container">
 
                 <div className="patients-header">
 
                     <div>
                         <h1>Patients</h1>
-
                         <p>
                             Gérez les patients de votre clinique
                         </p>
                     </div>
 
-                    <button
-                        className="add-patient-button"
-                        onClick={() =>
-                            navigate("/patients/new")
-                        }
-                    >
-                        + Ajouter un patient
-                    </button>
+
+                    <div className="patients-header-actions">
+                        <button
+                            className="back-dashboard-button"
+                            onClick={() => navigate("/dashboard")}
+                        >
+                            Dashboard
+                        </button>
+                        <button
+                            className="add-patient-button"
+                            onClick={() =>
+                                navigate("/patients/new")
+                            }
+                        >
+                            + Ajouter un patient
+                        </button>
+
+                        <button
+                            className="logout-button"
+                            onClick={handleLogout}
+                        >
+                            Déconnexion
+                        </button>
+
+                    </div>
 
                 </div>
 
                 <div className="patients-toolbar">
 
                     <div className="patient-search">
-
                         <input
                             type="text"
                             placeholder="Rechercher par nom ou CIN..."
                             value={search}
                             onChange={handleSearch}
                         />
-
                     </div>
 
                 </div>
@@ -191,6 +229,19 @@ function PatientsPage() {
                                                         Modifier
                                                     </button>
 
+                                                    {user?.role === "admin" && (
+                                                        <button
+                                                            className="delete-button"
+                                                            onClick={() =>
+                                                                handleDelete(
+                                                                    patient.id
+                                                                )
+                                                            }
+                                                        >
+                                                            Supprimer
+                                                        </button>
+                                                    )}
+
                                                 </div>
                                             </td>
 
@@ -242,7 +293,6 @@ function PatientsPage() {
                 </div>
 
             </div>
-
         </div>
     );
 }
