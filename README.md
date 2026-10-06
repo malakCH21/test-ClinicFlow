@@ -7,106 +7,91 @@ git clone https://github.com/malakCH21/test-ClinicFlow.git
 cd test-ClinicFlow
 ```
 
-### 2. Install backend dependencies
+### 2. Start the application with Docker
+
+Make sure Docker Desktop is installed and running.
+
+From the project root:
 
 ```bash
-cd backend
-npm install
+docker compose up --build
 ```
 
-### 3. Install frontend dependencies
+Docker Compose will automatically start:
 
-```bash
-cd ../frontend
-npm install
-```
+- PostgreSQL database
+- Backend API
+- Frontend React application
+
+The database schema and seed data are initialized automatically.
 
 ---
 
 ## ⚙️ Environment Variables
 
-### Backend
+The backend environment variables are configured for Docker.
 
-Create a `.env` file inside the `backend/` directory:
+Example:
 
 ```env
 PORT=5000
 
 DB_USER=postgres
-DB_HOST=localhost
+DB_HOST=postgres
 DB_NAME=clinicflowDB
-DB_PASSWORD=your postgresql password
+DB_PASSWORD=postgres
 DB_PORT=5432
 
 JWT_SECRET=your secure jwt secret
 ```
 
-> Do not commit the backend `.env` file to GitHub.
-
-### Frontend
-
-Create a `.env` file inside the `frontend/` directory:
-
-```env
-API_URL=http://localhost:5000/api
-```
-
-> Do not commit the frontend `.env` file to GitHub.
+> Do not commit sensitive environment variables to GitHub.
 
 ---
 
 ## 🗄️ Database Setup
 
-Create the PostgreSQL database:
+No manual PostgreSQL configuration is required.
 
-```sql
-CREATE DATABASE clinicflowDB;
-```
+Docker automatically:
 
-Then execute the database schema from the project root:
-
-```bash
-psql -U postgres -d clinicflowDB -f database/schema.sql
-```
-
-Load the test data:
-
-```bash
-psql -U postgres -d clinicflowDB -f database/seed.sql
-```
+- creates the PostgreSQL container;
+- creates the `clinicflowDB` database;
+- executes the database schema;
+- loads the seed data.
 
 ---
 
 ## ▶️ Commands
 
-### Start the backend
-
-From the project root:
+### Start the application
 
 ```bash
-cd backend
-npm run dev
+docker compose up --build
 ```
 
-The backend API will run at:
+Backend API:
 
 ```text
 http://localhost:5000
 ```
 
-### Start the frontend
-
-Open another terminal and run:
-
-```bash
-cd frontend
-npm run dev
-```
-
-The React application will run at:
+Frontend:
 
 ```text
 http://localhost:5173
+```
+
+### Stop the application
+
+```bash
+docker compose down
+```
+
+To also remove the PostgreSQL volume:
+
+```bash
+docker compose down -v
 ```
 
 ---
@@ -126,7 +111,15 @@ Role: admin
 ### Staff
 
 ```text
-Email: sara@clinicflow.com
+Email: hiba@clinicflow.com
+Password: test123
+Role: staff
+```
+
+### Staff
+
+```text
+Email: yassine@clinicflow.com
 Password: test123
 Role: staff
 ```
