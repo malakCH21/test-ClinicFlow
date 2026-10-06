@@ -93,6 +93,26 @@
     background: #ef4444;
 }
 
+.appointments-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(
+        135deg,
+        #14b8a6,
+        #0f766e
+    );
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.appointments-button:hover {
+    transform: translateY(-2px);
+}
+
 .patients-button:hover,
 .logout-button:hover {
     transform: translateY(-2px);

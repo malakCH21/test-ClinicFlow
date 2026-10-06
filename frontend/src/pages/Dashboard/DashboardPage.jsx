@@ -49,6 +49,9 @@ function DashboardPage() {
     const goToPatients = () => {
         navigate("/patients");
     };
+    const goToAppointments = () => {
+        navigate("/appointments");
+    };
 
     if (loading) {
         return (
@@ -94,6 +97,13 @@ function DashboardPage() {
                         onClick={goToPatients}
                     >
                         Gérer les patients
+                    </button>
+
+                    <button
+                        className="appointments-button"
+                        onClick={goToAppointments}
+                    >
+                        Gérer les rendez-vous
                     </button>
 
                     <button
