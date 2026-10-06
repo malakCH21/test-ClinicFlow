@@ -118,7 +118,7 @@ VALUES
     'pending',
     'Contrôle',
     NULL,
-    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
+    (SELECT id FROM users WHERE email = 'hiba@clinicflow.com')
 ),
 
 (
@@ -136,7 +136,7 @@ VALUES
     'cancelled',
     'Analyse',
     'Annulé par le patient',
-    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
+    (SELECT id FROM users WHERE email = 'hiba@clinicflow.com')
 ),
 
 (
@@ -154,7 +154,7 @@ VALUES
     'pending',
     'Suivi',
     NULL,
-    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
+    (SELECT id FROM users WHERE email = 'hiba@clinicflow.com')
 ),
 
 (
@@ -181,7 +181,7 @@ VALUES
     'confirmed',
     'Consultation générale',
     NULL,
-    (SELECT id FROM users WHERE email = 'malak@clinicflow.com')
+    (SELECT id FROM users WHERE email = 'test@clinicflow.com')
 ),
 
 (
