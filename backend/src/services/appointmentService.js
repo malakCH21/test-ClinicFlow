@@ -32,11 +32,12 @@ const createAppointment = async (data, userId) => {
 };
 
 
-const getAppointments = async (date, status) => {
+const getAppointments = async (date, status, patientId) => {
 
     return await appointmentRepository.findAll(
         date,
-        status
+        status,
+        patientId
     );
 };
 
