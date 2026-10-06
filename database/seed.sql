@@ -181,7 +181,7 @@ VALUES
     'confirmed',
     'Consultation générale',
     NULL,
-    (SELECT id FROM users WHERE email = 'test@clinicflow.com')
+    (SELECT id FROM users WHERE email = 'hiba@clinicflow.com')
 ),
 
 (
